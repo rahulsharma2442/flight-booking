@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: '../config/secrets.env' });
+const config = require('../config.json');
 
 const userSchema = new mongoose.Schema(
   {
@@ -60,10 +60,10 @@ const userSchema = new mongoose.Schema(
 
 userSchema.methods.getJWT = async function () {
   const user = this;
-  const secret = process.env.JWT_SECRET;
+  const secret = config.JWT_SECRET;
 
   const token = jwt.sign({ _id: user._id.toString() }, secret, {
-    expiresIn: process.env.JWT_EXPIRES_IN || '24h',
+    expiresIn: config.JWT_EXPIRES_IN|| '24h',
   });
 
   return token;

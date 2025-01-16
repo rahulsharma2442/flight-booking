@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const {userAuth} = require('../config/middlewears/userMiddleWear');
 const {User} = require('../modles/user');
+const config = require('../config.json');
 const authRouter = express.Router();
 
 
@@ -41,7 +42,7 @@ authRouter.get('/login', async (req, res) => {
         
         res.cookie('authToken', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: config.ENV === 'production',
             expires: new Date(Date.now() + 24 * 3600000)
         });
 

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const {User} = require('../modles/user');
 const config = require('../config.json');
-require('dotenv').config('../config/secret.env');
+
 
 const userAuth = async(req,res,next)=>{
     try{
