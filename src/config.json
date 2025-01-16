@@ -1,0 +1,6 @@
+{
+    "JWT_SECRET":"1b9fa29326b1d44617f2ff84b6f1303564833e312b0f469bfc381e7eef818627",
+    "JWT_EXPIRES_IN":"24h",
+    "EMAIL":"rs22mac2r23@student.nitw.ac.in",
+    "EMAIL_PASSWORD":"Sharma@Rahul24"
+}
