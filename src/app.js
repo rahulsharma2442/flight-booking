@@ -6,7 +6,7 @@ const { userRouter } = require('./routes/userApi');
 const {airPortRouter} = require('./routes/airportApi');
 const {flightRouter} = require('./routes/fligthsApi');
 const {seatRouter} = require('./routes/seatApi');
-require('dotenv').config({path:'./.env'})
+require('dotenv').config()
 const app = express();
 
 

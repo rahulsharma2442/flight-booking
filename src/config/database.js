@@ -1,6 +1,9 @@
+const { config } = require('dotenv');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const url = 'mongodb+srv://rs22mac2r23:rahul2003@flightsmanagement.6imcd.mongodb.net/FlightManagement?retryWrites=true&w=majority';
+const url = process.env.MONGODBURI;
+
 
 async function connectDB(){
     try{
