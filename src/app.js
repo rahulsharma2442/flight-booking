@@ -15,8 +15,7 @@ const jwtExpiresIn = process.env.JWT_EXPIRES_IN;
 const email = process.env.EMAIL;
 const emailPassword = process.env.EMAIL_PASSWORD;
 const environment = process.env.ENV;
-
-
+const PORT = process.env.PORT||7777;
 
 app.use(cors({
     origin:'http://localhost:3000',
@@ -40,7 +39,7 @@ app.use((err, req, res, next) => {
   
   connectDB()
   .then(() => {
-    app.listen(7777, () => {
+    app.listen(PORT, () => {
       console.log('Listening on port 7777');
     });
   })

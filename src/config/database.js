@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const url = 'mongodb+srv://rs22mac2r23:rahul2003@flightsmanagement.6imcd.mongodb.net/FlightManagement';
-
+const url = 'mongodb+srv://rs22mac2r23:rahul2003@flightsmanagement.6imcd.mongodb.net/FlightManagement?retryWrites=true&w=majority';
 
 async function connectDB(){
     try{
