@@ -2,7 +2,13 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const config = require('../config.json');
+require('dotenv').config()
 
+const jwtSecret = process.env.JWT_SECRET;
+const jwtExpiresIn = process.env.JWT_EXPIRES_IN;
+const email = process.env.EMAIL;
+const emailPassword = process.env.EMAIL_PASSWORD;
+const environment = process.env.ENV;
 const userSchema = new mongoose.Schema(
   {
     firstName: { type: String, required: true, trim: true, minLength: 3, maxLength: 20 },
@@ -60,10 +66,10 @@ const userSchema = new mongoose.Schema(
 
 userSchema.methods.getJWT = async function () {
   const user = this;
-  const secret = config.JWT_SECRET;
+  const secret = jwtSecret;
 
   const token = jwt.sign({ _id: user._id.toString() }, secret, {
-    expiresIn: config.JWT_EXPIRES_IN|| '24h',
+    expiresIn: jwtExpiresIn|| '24h',
   });
 
   return token;

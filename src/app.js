@@ -6,8 +6,15 @@ const { userRouter } = require('./routes/userApi');
 const {airPortRouter} = require('./routes/airportApi');
 const {flightRouter} = require('./routes/fligthsApi');
 const {seatRouter} = require('./routes/seatApi');
+require('dotenv').config({path:'./.env'})
 const app = express();
 
+
+const jwtSecret = process.env.JWT_SECRET;
+const jwtExpiresIn = process.env.JWT_EXPIRES_IN;
+const email = process.env.EMAIL;
+const emailPassword = process.env.EMAIL_PASSWORD;
+const environment = process.env.ENV;
 
 
 

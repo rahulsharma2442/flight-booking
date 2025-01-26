@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken');
 const {User} = require('../modles/user');
 const config = require('../config.json');
-
-
+require('dotenv').config()
+const jwtSecret = process.env.JWT_SECRET;
+const jwtExpiresIn = process.env.JWT_EXPIRES_IN;
+const email = process.env.EMAIL;
+const emailPassword = process.env.EMAIL_PASSWORD;
+const environment = process.env.ENV;
 const userAuth = async(req,res,next)=>{
     try{
         const cookies = req.cookies;
@@ -13,7 +17,7 @@ const userAuth = async(req,res,next)=>{
         if(!authToken){
             return res.status(401).send({msg:"Please login again"});
         }
-        let secret = config.JWT_SECRET;
+        let secret = jwtSecret;
         
         const message = jwt.verify(authToken,secret)
         const {id} = message;

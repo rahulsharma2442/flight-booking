@@ -6,6 +6,13 @@ const config = require('../config.json');
 const {userAuth} = require('../middlewears/userMiddleWear');
 const userRouter = express.Router();
 const nodemailer = require('nodemailer');
+require('dotenv').config()
+
+const jwtSecret = process.env.JWT_SECRET;
+const jwtExpiresIn = process.env.JWT_EXPIRES_IN;
+const envEmail = process.env.EMAIL;
+const envEmailPassword = process.env.EMAIL_PASSWORD;
+const environment = process.env.ENV;
 userRouter.get('/allUsers',userAuth,async(req,res)=>{
   
     try{
@@ -29,22 +36,22 @@ userRouter.post('/register', async (req, res) => {
     }
 
     // Generate email verification token
-    const secret = config.JWT_SECRET;
+    const secret =jwtSecret;
     const emailToken = jwt.sign({ email }, secret, { expiresIn: '1h' });
 
     // Set up nodemailer
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: config.EMAIL, // Use environment variables
-        pass: config.EMAIL_PASSWORD,
+        user: envEmail, // Use environment variables
+        pass: envEmailPassword,
       },
     });
 
     // Email verification link
     const verificationLink = `http://localhost:7777/api/Users/verify-email?token=${emailToken}`;
     const mailOptions = {
-      from: config.EMAIL,
+      from: envEmail,
       to: email,
       subject: 'Verify your email',
       html: `<p>Click the link below to verify your email:</p>
@@ -82,7 +89,7 @@ userRouter.get('/verify-email', async (req, res) => {
       return res.status(400).send({ msg: "Invalid or missing token" });
     }
 
-    const secret = config.JWT_SECRET;
+    const secret = jwtSecret;
 
     // Verify and decode the token
     let decoded;
@@ -139,7 +146,7 @@ userRouter.post('/login',async(req,res)=>{
       return res.status(401).send({msg:"combination of ID and password do not exit"});
     }
     
-    const secret = config.JWT_SECRET;
+    const secret = jwtSecret;
     let jwtValue = {id:user._id};
     const token =  jwt.sign(JSON.stringify(jwtValue),secret);
     res.cookie('authToken',token);
